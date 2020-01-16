@@ -144,13 +144,13 @@ public:
      */
     string toString() const {
         string representedMatrix;
-        representedMatrix += to_string(this->initialState->getState().getLeft());
+        representedMatrix += to_string(this->initialState->getState().getX());
         representedMatrix += ',';
-        representedMatrix += to_string(this->initialState->getState().getRight());
+        representedMatrix += to_string(this->initialState->getState().getY());
         representedMatrix += ',';
-        representedMatrix += to_string(this->finalGoal->getState().getLeft());
+        representedMatrix += to_string(this->finalGoal->getState().getX());
         representedMatrix += ',';
-        representedMatrix += to_string(this->finalGoal->getState().getRight());
+        representedMatrix += to_string(this->finalGoal->getState().getY());
         for (int i = 0; i < rowsNumber; i++) {
             for (int j = 0; j < columnNumber; j++) {
                 representedMatrix += ',';

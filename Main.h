@@ -26,7 +26,7 @@ namespace server_side{
             int main(int argc,char* argv[]){
                 Server* server = new MySerialServer;
                 CacheManager<Matrix<Coordinates>,BasicString>* cacheManager = new FileCacheManager<Matrix<Coordinates>,BasicString>;
-                Solver<Matrix<Coordinates>,BasicString> *solver = new Adapter<Matrix<Coordinates>,Coordinates,BasicString>(new Astar
+                Solver<Matrix<Coordinates>,BasicString> *solver = new Adapter<Matrix<Coordinates>,Coordinates,BasicString>(new BFS
                         <Coordinates,BasicString>);
                 ClientHandler* clientHandler = new FinalClientHandler<Matrix<Coordinates>,BasicString>(solver,cacheManager);
                 server->open(stoi(argv[1]),clientHandler);

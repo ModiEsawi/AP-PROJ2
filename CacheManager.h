@@ -4,12 +4,12 @@
 template<typename Problem, typename Solution>
 
 class CacheManager {
+public:
+    virtual Solution* getSolution(Problem* problem) = 0;
 
-    virtual Solution getSolution(Problem problem) = 0;
+    virtual bool alreadySolved(Problem* problem) = 0;
 
-    virtual bool alreadySolved(Problem problem) = 0;
-
-    virtual void insertSolution(Problem problem, Solution solution) = 0;
+    virtual void insertSolution(Problem* problem, Solution* solution) = 0;
 
 //    virtual ~CacheManager() {}
 };
