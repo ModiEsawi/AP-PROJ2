@@ -6,6 +6,9 @@
 #include "CacheManager.h"
 #include "vector"
 #include "BasicString.h"
+#include "pthread.h"
+
+
 template<typename Problem, typename Solution>
 class FinalClientHandler : public server_side::ClientHandler {
 private:
@@ -14,11 +17,12 @@ private:
 public:
 
     //Constructor
-    FinalClientHandler(Solver<Problem,Solution> *solver, CacheManager<Problem,Solution> *cm) : problemSolver(solver),
-                                                                                               cacheManager(cm) {}
+    FinalClientHandler(Solver<Problem, Solution> *solver, CacheManager<Problem, Solution> *cm) : problemSolver(solver),
+                                                                                                 cacheManager(cm) {}
 
     //handle client requests
     void handleClient(Client client) override {
+
         vector<string> problems;
         string stringProblem;
 
@@ -36,24 +40,27 @@ public:
         }
         problems.pop_back();
         auto *problem = new Problem(problems); //build a problem from the list of the strings
-        if (this->cacheManager->alreadySolved(problem)) { //solved before
-            Solution *sol = this->cacheManager->getSolution(problem); //get the saved solution
-            string solutionString = sol->toString(); // build a string solution
-            delete sol;
-            delete problem;
-            client.write(solutionString); //write back to the client
-        }
-        else {
+//        if (this->cacheManager->alreadySolved(problem)) { //solved before
+//            Solution *sol = this->cacheManager->getSolution(problem); //get the saved solution
+//            string solutionString = sol->toString(); // build a string solution
+//            delete sol;
+//            delete problem;
+//            client.write(solutionString); //write back to the client
+//        }
+//        else {
         Solution *finalSolution = this->problemSolver->solve(problem); //solve
         string solutionString = finalSolution->toString(); //build a string solution
+//        this->cacheManager->insertSolution(problem, finalSolution); //save the solution
+//        delete finalSolution;
+//        delete problem;
 
-        this->cacheManager->insertSolution(problem, finalSolution); //save the solution
-        delete finalSolution;
-        delete problem;
         client.write(solutionString); //write back to the client
-        }
-
     }
+    ClientHandler* getClone(){
+        return new FinalClientHandler(this->problemSolver->getClone(),this->cacheManager->getClone());
+    }
+
+//}
 };
 
 

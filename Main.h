@@ -19,36 +19,24 @@
 #include "BestFirstSearch.h"
 #include "DFS.h"
 #include "BFS.h"
+#include "MyParallelServer.h"
 namespace server_side{
     namespace boot{
         class Main{
         public:
             int main(int argc,char* argv[]){
-                Server* server = new MySerialServer;
+                Server* server = new MyParallelServer;
                 CacheManager<Matrix<Coordinates>,BasicString>* cacheManager = new FileCacheManager<Matrix<Coordinates>,BasicString>;
-                Solver<Matrix<Coordinates>,BasicString> *solver = new Adapter<Matrix<Coordinates>,Coordinates,BasicString>(new BFS
+                Solver<Matrix<Coordinates>,BasicString> *solver = new Adapter<Matrix<Coordinates>,Coordinates,BasicString>(new Astar
                         <Coordinates,BasicString>);
                 ClientHandler* clientHandler = new FinalClientHandler<Matrix<Coordinates>,BasicString>(solver,cacheManager);
-                server->open(stoi(argv[1]),clientHandler);
+                server->open(5555,clientHandler);
                 server->stop();
                 return 0;
             }
         };
     }
 }
-//CacheManager<MazeDomain<Index>,StringClass> *cm=new FileCacheManager<MazeDomain<Index>,StringClass>;
-//Solver<MazeDomain<Index>,StringClass> *solver;
-//solver= new SolverSearcher<MazeDomain<Index>,Index,StringClass>(new AstarAlgorithm
-//<Index,StringClass> );
-//ClientHandler* ch=new MyClientHandler<MazeDomain<Index>,StringClass>(solver,cm);
-//server->open(stoi(argv[1]),ch);
-//server->stop();
-//delete solver;
-//delete cm;
-//delete ch;
-//delete server;
-
-
 
 
 #endif //EX4_MAIN_H

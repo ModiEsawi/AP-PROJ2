@@ -31,15 +31,13 @@ protected:
     priority_queue<State<Problem> *, vector<State<Problem> *>, Comp2> starPriorityQueue;
 
     priority_queue<State<Problem> *, vector<State<Problem> *>, Comp> priorityQueue;
+
+
     int evaluatedNodes;
     double totalPathCost;
+
 public:
     Searcher() : evaluatedNodes(0), totalPathCost(0) {}
-
-//    Searcher()  {
-//        this->pathCost = 0;
-//        this->evaluatedNodes = 32;
-//    }
 
     int getNumberOfNodesEvaluated() {
         return this->evaluatedNodes;
@@ -73,16 +71,20 @@ public:
     }
 
     bool checkExistence(State<Problem> *stateToLookFor) {
+
         priority_queue < State<Problem> * , vector<State<Problem> *>, Comp > queueCopy = this->priorityQueue;
         while (!queueCopy.empty()) {  //dequeue
             if (*(queueCopy.top()) == *stateToLookFor) { //contain
+
                 return true;
+
             }
             queueCopy.pop();
         }
-        return false;
 
+        return false;
     }
+
     bool starCheckExistence(State<Problem> *stateToLookFor) {
         priority_queue < State<Problem> * , vector<State<Problem> *>, Comp2 > queueCopy = this->starPriorityQueue;
         while (!queueCopy.empty()) {  //dequeue

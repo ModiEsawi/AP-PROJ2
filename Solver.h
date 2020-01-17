@@ -9,6 +9,9 @@ class Solver{
 public:
     virtual Solution* solve (Problem* problem) = 0;
 
+    virtual Solver* getClone()=0;
+
+
     virtual ~ Solver()= default;
 
 };

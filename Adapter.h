@@ -16,7 +16,7 @@ private:
 
 public:
     //Constructor
-    explicit Adapter(ISearcher<T,Solution>* is):is(is){}
+     explicit Adapter(ISearcher<T,Solution>* is):is(is){}
 
     //Adaption
     Solution* solve(Problem* problem) {
@@ -24,6 +24,10 @@ public:
     }
     ~Adapter(){
         delete is;
+    }
+
+    virtual Adapter* getClone(){
+        return new Adapter(this->is->getClone());
     }
 };
 

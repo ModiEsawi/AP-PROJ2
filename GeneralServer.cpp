@@ -3,7 +3,7 @@
 #include <cerrno>
 #include <iostream>
 #include "GeneralServer.h"
-
+#include "pthread.h"
 
 void GeneralServer::bindToPort(int port) {
     sockaddr_in addr_in;
@@ -14,6 +14,7 @@ void GeneralServer::bindToPort(int port) {
         throw "Failed to bind!";
     }
 }
+
 //making the socket listen to the port
 void GeneralServer::listen(int maximumAllowedListeners) {
     if (::listen(socket.socket_fd,maximumAllowedListeners) == -1){
@@ -28,6 +29,7 @@ void GeneralServer::setTimeout(int sec, int uSec) {
 }
 
 Client GeneralServer::accept() {
+
     sockaddr_in address;
     socklen_t len = sizeof(address);
     int client_fd = ::accept(socket.socket_fd, (struct sockaddr *) &address, (socklen_t *) &len);
@@ -41,13 +43,14 @@ Client GeneralServer::accept() {
 
     generalSocket newClientSocket (client_fd);                         // come back here to understand what happend!!!
     newClientSocket.setTimeout(0);
+
     return (Client)newClientSocket;
 
 }
 
-void GeneralServer::stop() {
-
-    socket.close();
-
-}
+//void GeneralServer::stop() {
+//
+//    socket.close();
+//
+//}
 

@@ -9,6 +9,7 @@ class ISearcher {
 public:
     virtual Solution *search(ISearchable<Problem> *searchable) = 0;
 
+    virtual ISearcher<Problem,Solution>* getClone() = 0;
 
     int getNumberOfNodesEvaluated() const { return this->evaluatedNodes; }
 

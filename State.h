@@ -61,6 +61,9 @@ public:
     T getState() const {
         return this->state;
     }
+    State<T>* getClone(){
+        return new State<T>(new T(this->state));
+    }
 
 };
 

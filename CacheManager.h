@@ -11,6 +11,8 @@ public:
 
     virtual void insertSolution(Problem* problem, Solution* solution) = 0;
 
+    virtual CacheManager<Problem,Solution>* getClone()=0;
+
 //    virtual ~CacheManager() {}
 };
 

@@ -19,7 +19,11 @@ public:
 
     virtual vector<State<T>*> getAllPossibleStates(State<T>* givenState) = 0;
 
+    virtual ISearchable* getClone() = 0;
+
+
     virtual ~ISearchable()= default;
 };
+
 
 #endif //EX4_ISEARCHABLE_H

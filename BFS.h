@@ -77,8 +77,11 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-
+        cout<<"Ev ="<<this->evaluatedNodes<<"Cost="<<this->totalPathCost<<endl;
         return finalSolution;
+    }
+    ISearcher<Problem,Solution>* getClone(){
+        return new BFS();
     }
 
 };

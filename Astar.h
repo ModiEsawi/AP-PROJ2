@@ -5,12 +5,15 @@
 #include <map>
 #include "Searcher.h"
 #include <unordered_set>
-
+#include "pthread.h"
+pthread_mutex_t lock2;
 template<typename Problem, typename Solution>
 class Astar : public Searcher<Problem, Solution> {
     Solution *search(ISearchable<Problem> *searchable) {
+
         State<Problem> *goalIsFound = NULL;
         string stringSolution;
+
         State<Problem> *initialState = searchable->getInitialState();
 
 
@@ -24,10 +27,12 @@ class Astar : public Searcher<Problem, Solution> {
         int initialY = initialState->getState().getY();
 
         double initialHfunction = abs(initialX - goalX) + abs(initialY - goalY);
+
         double initialFfunction = initialHfunction;
 
         initialState->setThePathCost(initialState->getCost());
         initialState->setTheFcost(initialFfunction);
+
         this->starPriorityQueue.push(initialState);
 
         while (!this->starPriorityQueue.empty()) {
@@ -82,26 +87,7 @@ class Astar : public Searcher<Problem, Solution> {
                 }
             }
         }
-//        for (State<T> &item : neighbors) {
-//            bool inOpen = priorityQueue.atQueue(item);
-//            bool inClosed = std::find(closed.begin(), closed.end(), item) != closed.end();
-//            // add to out queue
-//            if (!inOpen && !inClosed) {
-//                priorityQueue.push(item);
-//            } else {
-//                // if item in stop, skip
-//                if (inClosed) continue;
-//                State<T> tmp = priorityQueue.remove(item);
-//                // if item is better, means better path, update tmp
-//                if (item < tmp) {
-//                    tmp.setCameFrom(item.getCameFrom());
-//                    tmp.setCost(item.getCost());
-//                }
-//                // reenter temp to queue
-//                priorityQueue.push(tmp);
-//
-//            }
-//        }
+
         if (goalIsFound != NULL) {
             vector<State<Problem> *> fathers = this->traceBack(goalIsFound);
             if (fathers.size() == 1) {
@@ -126,12 +112,16 @@ class Astar : public Searcher<Problem, Solution> {
             stringSolution = "Not Found";
             this->totalPathCost = -1;
         }
-
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
 
+
         return finalSolution;
+    }
+
+    ISearcher<Problem,Solution>* getClone(){
+        return new Astar();
     }
 };
 

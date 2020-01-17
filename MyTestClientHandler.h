@@ -22,18 +22,29 @@ public:
     void handleClient(Client client) {
         string stringProblem;
 
-        while (stringProblem != "end\n") {
-
-            stringProblem = client.read(1024);
-//            Problem clientProblem(stringProblem);
-//            if (cacheManager->alreadySolved(stringProblem)) {
-//                client.write(cacheManager->getSolution(stringProblem));
+        while(true){
+            string input;
+            input= client.read(1024); //get line from the client
+            if(input[input.size()-1]=='\n') //delete new line char if was
+                input=input.substr(0,input.size()-1);
+            if(input=="end"){  //stop the contact
+                return;
+            }
+            Problem* problem(input); //build the problem from the string
+//            if(this->cacheManager->alreadySolved(problem)){ //solved before
+//                Solution solution=this->cacheManager->getSolution(problem); //get solution
+//                client.write(solution.toString()); //build string that define the solution
+//            }else{
+                Solution* solution=this->problemSolver->solve(problem); //solve the problem
+//                this->cacheManager->insertSolution(problem,solution); //save it
+//                client.write(solution.toString()); //send a string that define the solution
 //            }
-            Solution solutionToProblem = this->problemSolver->solve(stringProblem);
-//            this->cacheManager.insertSolution(stringProblem, solutionToProblem);
-            client.write(solutionToProblem);
+
         }
 
+    }
+    virtual MyTestClientHandler* getClone(){
+        return new MyTestClientHandler(this->problemSolver->getClone(),this->cacheManager->getClone());
     }
 };
 

@@ -8,6 +8,7 @@
 #define TIMEOUT 2
 class GeneralServer: public server_side::Server{
 generalSocket socket;
+bool shouldStop = false;
 public:
 
     void bindToPort(int port);
@@ -18,7 +19,10 @@ public:
 
     Client accept();
 
-    void stop() override;
+    void stop() {
+        this->shouldStop = true;
+        this->socket.close();
+    };
 
 
     virtual void open(int port , server_side::ClientHandler *givenClientHandler ) = 0;

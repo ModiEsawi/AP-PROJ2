@@ -25,8 +25,7 @@ private:
 public:
     // initializing the objects fields.
     explicit FileCacheManager() {
-//        this->capacity = 5;
-//        this->totalItemsInCache = 0; // zero items in the beginning
+
     }
 
     void insertSolution(Problem *problem, Solution *solution) {
@@ -101,6 +100,10 @@ public:
 //        return myfile.is_open();
     }
 
+    virtual CacheManager<Problem,Solution>* getClone(){
+        //cout<<"befor cm"<<endl;
+        return new FileCacheManager<Problem,Solution>;
+    }
 
 };
 

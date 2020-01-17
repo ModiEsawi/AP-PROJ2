@@ -17,9 +17,11 @@ private:
     State<T> *finalGoal;
     int rowsNumber;
     int columnNumber;
+    vector<string> givenRows;
 public:
 
     Matrix(vector<string> &rows) {
+        this->givenRows = rows;
         this->rowsNumber = rows.size() - 2; // the last 2 are goal and start
         int rowCounter = 0;
         bool flag = true, initial = false;
@@ -70,23 +72,23 @@ public:
         }
     }
 
-    //CTOR
-    ~Matrix() {
-        //delete the matrix
-        for (int i = 0; i < rowsNumber; i++) {
-            delete[] this->elements[i];
-        }
-        delete[] this->elements;
-        //delete the initial and goal states
-        if (this->initialState != NULL) {
-            delete this->initialState;
-            this->initialState = NULL;
-        }
-        if (this->finalGoal != NULL) {
-            delete this->finalGoal;
-            this->finalGoal = NULL;
-        }
-    }
+//    //CTOR
+//    ~Matrix() {
+//        //delete the matrix
+//        for (int i = 0; i < rowsNumber; i++) {
+//            delete[] this->elements[i];
+//        }
+//        delete[] this->elements;
+//        //delete the initial and goal states
+//        if (this->initialState != NULL) {
+//            delete this->initialState;
+//            this->initialState = NULL;
+//        }
+//        if (this->finalGoal != NULL) {
+//            delete this->finalGoal;
+//            this->finalGoal = NULL;
+//        }
+//    }
 
     //getters
     State<T> *getInitialState() override { return this->initialState; }
@@ -200,6 +202,9 @@ public:
         }
         pathString = pathString.substr(0, pathString.size() - 1); //delete last ','
         return pathString;
+    }
+    ISearchable<T>* getClone(){
+        return new Matrix(this->givenRows);
     }
 };
 

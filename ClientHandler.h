@@ -8,7 +8,7 @@ namespace server_side {
     public:
 
         virtual void handleClient(Client client) = 0;
-
+        virtual ClientHandler* getClone()=0;
         virtual ~ ClientHandler() = default;
     };
 }
