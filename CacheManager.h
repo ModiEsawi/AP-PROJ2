@@ -13,7 +13,7 @@ public:
 
     virtual CacheManager<Problem,Solution>* getClone()=0;
 
-//    virtual ~CacheManager() {}
+    virtual ~CacheManager() {}
 };
 
 

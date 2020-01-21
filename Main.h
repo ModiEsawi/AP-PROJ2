@@ -20,18 +20,24 @@
 #include "DFS.h"
 #include "BFS.h"
 #include "MyParallelServer.h"
-namespace server_side{
-    namespace boot{
-        class Main{
+
+namespace server_side {
+    namespace boot {
+        class Main {
         public:
-            int main(int argc,char* argv[]){
-                Server* server = new MyParallelServer;
-                CacheManager<Matrix<Coordinates>,BasicString>* cacheManager = new FileCacheManager<Matrix<Coordinates>,BasicString>;
-                Solver<Matrix<Coordinates>,BasicString> *solver = new Adapter<Matrix<Coordinates>,Coordinates,BasicString>(new Astar
-                        <Coordinates,BasicString>);
-                ClientHandler* clientHandler = new FinalClientHandler<Matrix<Coordinates>,BasicString>(solver,cacheManager);
-                server->open(5555,clientHandler);
-                server->stop();
+            int main(int argc, char *argv[]) {
+                int port = 5600;
+                if (argv[1] != nullptr) {
+                    port = atoi(argv[1]);
+                }
+                Server *server = new MyParallelServer;
+                CacheManager<Matrix<Coordinates>, BasicString> *cacheManager = new FileCacheManager<Matrix<Coordinates>,
+                        BasicString>;
+                Solver<Matrix<Coordinates>, BasicString> *solver = new Adapter<Matrix<Coordinates>, Coordinates,
+                BasicString>(new Astar<Coordinates, BasicString>);
+                ClientHandler *clientHandler = new FinalClientHandler<Matrix<Coordinates>, BasicString>
+                        (solver,cacheManager);
+                server->open(port, clientHandler);
                 return 0;
             }
         };

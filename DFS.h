@@ -14,10 +14,10 @@ public:
         State<Problem> *goalIsFound = NULL;
         string stringSolution;
         State<Problem> *initialState = searchable->getInitialState();
-        stack<State<Problem>*> statesStack;
+        stack < State<Problem> * > statesStack;
         vector<State<Problem> *> visited;
 
-        State<Problem>* initial = searchable->getInitialState();
+        State<Problem> *initial = searchable->getInitialState();
         statesStack.push(initial);
         visited.push_back(initial); // mark as visited
 
@@ -35,7 +35,8 @@ public:
             this->evaluatedNodes++;
 
             typename vector<State<Problem> *>::iterator successorsIterator;
-            for (successorsIterator = successors.begin(); successorsIterator != successors.end(); ++successorsIterator){
+            for (successorsIterator = successors.begin();
+                 successorsIterator != successors.end(); ++successorsIterator) {
                 State<Problem> *currentState = *successorsIterator;
                 bool alreadyVisited = false;
                 for (auto visitedIterator : visited) {
@@ -76,11 +77,12 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-        cout<<"Ev ="<<this->evaluatedNodes<<"Cost="<<this->totalPathCost<<endl;
+        cout << "Ev =" << this->evaluatedNodes << "Cost=" << this->totalPathCost << endl;
 
         return finalSolution;
     }
-    ISearcher<Problem,Solution>* getClone(){
+
+    ISearcher<Problem, Solution> *getClone() {
         return new DFS();
     }
 };

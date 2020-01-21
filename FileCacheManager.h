@@ -41,7 +41,7 @@ public:
         if (!myfile.is_open()) {
             throw "can not create the object file!";
         }
-//    //Here would be some error handling
+//     Here would be some error handling
         myfile << problem->toString() << "\n";
         myfile << solution->toString() << "\n";
 
@@ -52,26 +52,25 @@ public:
 
     Solution *getSolution(Problem *problem) {
 
-        if (foundInMap(problem)){
+        if (foundInMap(problem)) {
             return new Solution(this->hashCache.find(problem->toString())->second);
-        }
-        else if (foundInFiles(problem)){
+        } else if (foundInFiles(problem)) {
             hash<std::string> hasher;
             string fileName = to_string(hasher(problem->toString()));
             fstream myfile;
-            myfile.open(fileName,ios::in);
-            string line,problemInFile,solution;
-            bool flag=false;
+            myfile.open(fileName, ios::in);
+            string line, problemInFile, solution;
+            bool flag = false;
             // only 2 lines in each file!
-            if(myfile){
-                while(getline(myfile,line)){ //initialize the hash map
-                    if(!flag){
-                        problemInFile=line;
-                        flag=true;
-                    }else{
-                        solution=line;
-                        this->hashCache.insert(pair<string,string>(problemInFile,solution));
-                        flag=false;
+            if (myfile) {
+                while (getline(myfile, line)) { //initialize the hash map
+                    if (!flag) {
+                        problemInFile = line;
+                        flag = true;
+                    } else {
+                        solution = line;
+                        this->hashCache.insert(pair<string, string>(problemInFile, solution));
+                        flag = false;
                     }
                 }
                 myfile.close();
@@ -86,7 +85,7 @@ public:
     }
 
     bool foundInMap(Problem *problem) {
-        if( this->hashCache.find(problem->toString()) == this->hashCache.end() )
+        if (this->hashCache.find(problem->toString()) == this->hashCache.end())
             return false;
         return true;
     }
@@ -96,13 +95,10 @@ public:
         string fileName = to_string(hasher(problem->toString()));
         ifstream isfile(fileName);
         return (bool) isfile;
-
-//        return myfile.is_open();
     }
 
-    virtual CacheManager<Problem,Solution>* getClone(){
-        //cout<<"befor cm"<<endl;
-        return new FileCacheManager<Problem,Solution>;
+    virtual CacheManager<Problem, Solution> *getClone() {
+        return new FileCacheManager<Problem, Solution>;
     }
 
 };

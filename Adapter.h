@@ -15,10 +15,10 @@ private:
     ISearcher<T,Solution>* is;
 
 public:
-    //Constructor
+
      explicit Adapter(ISearcher<T,Solution>* is):is(is){}
 
-    //Adaption
+
     Solution* solve(Problem* problem) {
         return is->search(problem);
     }

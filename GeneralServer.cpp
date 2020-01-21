@@ -3,7 +3,6 @@
 #include <cerrno>
 #include <iostream>
 #include "GeneralServer.h"
-#include "pthread.h"
 
 void GeneralServer::bindToPort(int port) {
     sockaddr_in addr_in;
@@ -41,16 +40,12 @@ Client GeneralServer::accept() {
             throw "error on accept";
     }
 
-    generalSocket newClientSocket (client_fd);                         // come back here to understand what happend!!!
+    generalSocket newClientSocket (client_fd);
     newClientSocket.setTimeout(0);
 
     return (Client)newClientSocket;
 
 }
 
-//void GeneralServer::stop() {
-//
-//    socket.close();
-//
-//}
+
 

@@ -40,27 +40,27 @@ public:
         }
         problems.pop_back();
         auto *problem = new Problem(problems); //build a problem from the list of the strings
-//        if (this->cacheManager->alreadySolved(problem)) { //solved before
-//            Solution *sol = this->cacheManager->getSolution(problem); //get the saved solution
-//            string solutionString = sol->toString(); // build a string solution
-//            delete sol;
-//            delete problem;
-//            client.write(solutionString); //write back to the client
-//        }
-//        else {
-        Solution *finalSolution = this->problemSolver->solve(problem); //solve
-        string solutionString = finalSolution->toString(); //build a string solution
-//        this->cacheManager->insertSolution(problem, finalSolution); //save the solution
-//        delete finalSolution;
-//        delete problem;
+        if (this->cacheManager->alreadySolved(problem)) { //solved before
+            Solution *sol = this->cacheManager->getSolution(problem); //get the saved solution
+            string solutionString = sol->toString(); // build a string solution
+            delete sol;
+            delete problem;
+            client.write(solutionString); //write back to the client
+        } else {
+            Solution *finalSolution = this->problemSolver->solve(problem); //solve
+            string solutionString = finalSolution->toString(); //build a string solution
+            this->cacheManager->insertSolution(problem, finalSolution); //save the solution
+            delete finalSolution;
+            delete problem;
 
-        client.write(solutionString); //write back to the client
-    }
-    ClientHandler* getClone(){
-        return new FinalClientHandler(this->problemSolver->getClone(),this->cacheManager->getClone());
+            client.write(solutionString); //write back to the client
+        }
     }
 
-//}
+
+    ClientHandler *getClone() {
+        return new FinalClientHandler(this->problemSolver->getClone(), this->cacheManager->getClone());
+    }
 };
 
 

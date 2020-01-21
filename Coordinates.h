@@ -13,11 +13,11 @@ private:
     int y;
 
 public:
-    //default CTOR
-    Coordinates() : x(0), y(0) {}
-
     //constructor.
     Coordinates(int left, int right) : x(left), y(right) {}
+
+    //default CTOR
+    Coordinates() : x(0), y(0) {}
 
     Coordinates(string givenString) {
         try {
@@ -52,10 +52,10 @@ public:
 
     int getY() const { return y; }
 
-    //representable
+
     string toString() const { return to_string(x) + "," + to_string(y); }
 
-    //operators overloading
+
     bool operator==(const Coordinates &i) const {
         return this->x == i.getX() && this->y == i.getY();
     }

@@ -5,6 +5,7 @@
 #include "ISearchable.h"
 #include "Coordinates.h"
 #include "vector"
+
 #define WALL -1
 
 using namespace std;
@@ -72,23 +73,23 @@ public:
         }
     }
 
-//    //CTOR
-//    ~Matrix() {
-//        //delete the matrix
-//        for (int i = 0; i < rowsNumber; i++) {
-//            delete[] this->elements[i];
-//        }
-//        delete[] this->elements;
-//        //delete the initial and goal states
-//        if (this->initialState != NULL) {
-//            delete this->initialState;
-//            this->initialState = NULL;
-//        }
-//        if (this->finalGoal != NULL) {
-//            delete this->finalGoal;
-//            this->finalGoal = NULL;
-//        }
-//    }
+    //CTOR
+    ~Matrix() {
+        //delete the matrix
+        for (int i = 0; i < rowsNumber; i++) {
+            delete[] this->elements[i];
+        }
+        delete[] this->elements;
+        //delete the initial and goal states
+        if (this->initialState != NULL) {
+            delete this->initialState;
+            this->initialState = NULL;
+        }
+        if (this->finalGoal != NULL) {
+            delete this->finalGoal;
+            this->finalGoal = NULL;
+        }
+    }
 
     //getters
     State<T> *getInitialState() override { return this->initialState; }
@@ -105,6 +106,21 @@ public:
         int x = currentState.getX();
         int y = currentState.getY();
 
+        //down
+        if (x + 1 <= rowsNumber - 1 && elements[x + 1][y] != WALL) {
+            auto down = new State<T>(T(x + 1, y));
+            down->setTheCost(elements[x + 1][y]);
+            down->setThePathCost(elements[x + 1][y]);
+            possibleStates.push_back(down);
+        }
+        //up
+        if (x - 1 >= 0 && elements[x - 1][y] != WALL) {
+            auto up = new State<T>(T(x - 1, y));
+            up->setTheCost(elements[x - 1][y]);
+            up->setThePathCost(elements[x - 1][y]);
+
+            possibleStates.push_back(up);
+        }
         //right
         if (y + 1 <= columnNumber - 1 && elements[x][y + 1] != WALL) {
             auto right = new State<T>(T(x, y + 1));
@@ -122,21 +138,6 @@ public:
             possibleStates.push_back(left);
         }
 
-        //down
-        if (x + 1 <= rowsNumber - 1 && elements[x + 1][y] != WALL) {
-            auto down = new State<T>(T(x + 1, y));
-            down->setTheCost(elements[x + 1][y]);
-            down->setThePathCost(elements[x + 1][y]);
-            possibleStates.push_back(down);
-        }
-        //up
-        if (x - 1 >= 0 && elements[x - 1][y] != WALL) {
-            auto up = new State<T>(T(x - 1, y));
-            up->setTheCost(elements[x - 1][y]);
-            up->setThePathCost(elements[x - 1][y]);
-
-            possibleStates.push_back(up);
-        }
         return possibleStates;
 
     }
@@ -162,7 +163,7 @@ public:
         return representedMatrix;
     }
 
-    string getFullPathAsString(vector<State<T>*> path) override {
+    string getFullPathAsString(vector<State<T> *> path) override {
         reverse(path.begin(), path.end());
         string pathString;
         typename vector<State<T> *>::iterator it;
@@ -180,21 +181,13 @@ public:
             T nextIndex = next->getState();
             string value = to_string(curr->getPathCost());
             if (currIndex.getX() < nextIndex.getX()) {
-                status = "Down (";
-                status.append(value);
-                status.append(")");
+                status = "Down ";
             } else if (currIndex.getX() > nextIndex.getX()) {
-                status = "Up (";
-                status.append(value);
-                status.append(")");
+                status = "Up ";
             } else if (currIndex.getY() < nextIndex.getY()) {
-                status = "Right (";
-                status.append(value);
-                status.append(")");
+                status = "Right ";
             } else {
-                status = "Left (";
-                status.append(value);
-                status.append(")");
+                status = "Left ";
             }
             pathString += status;
             pathString += ",";
@@ -203,7 +196,8 @@ public:
         pathString = pathString.substr(0, pathString.size() - 1); //delete last ','
         return pathString;
     }
-    ISearchable<T>* getClone(){
+
+    ISearchable<T> *getClone() {
         return new Matrix(this->givenRows);
     }
 };

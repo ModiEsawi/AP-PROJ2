@@ -8,7 +8,7 @@ generalSocket::generalSocket(int open_sock_fd) {
 
 generalSocket::generalSocket() {
     this->socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_fd < 0){
+    if (socket_fd < 0) {
         throw "could not create a socket!";
     }
 
@@ -18,14 +18,14 @@ void generalSocket::setTimeout(int sec, int usec) {
     struct timeval tv;
     tv.tv_usec = usec;
     tv.tv_sec = sec;
-    if (setsockopt(this->socket_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv) == -1){
+    if (setsockopt(this->socket_fd, SOL_SOCKET, SO_RCVTIMEO, (const char *) &tv, sizeof tv) == -1) {
         throw "Failed with setting the socket timeOut !";
     }
 
 }
 
 void generalSocket::close() {
-    if (::close(this->socket_fd) < 0){
+    if (::close(this->socket_fd) < 0) {
         throw ("failure on closing socket");
     }
 }

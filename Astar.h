@@ -5,8 +5,7 @@
 #include <map>
 #include "Searcher.h"
 #include <unordered_set>
-#include "pthread.h"
-pthread_mutex_t lock2;
+
 template<typename Problem, typename Solution>
 class Astar : public Searcher<Problem, Solution> {
     Solution *search(ISearchable<Problem> *searchable) {
@@ -73,7 +72,8 @@ class Astar : public Searcher<Problem, Solution> {
                     successor->setThePathCost(gFunction);
                     successor->setTheFcost(fFunction);
                     this->starPriorityQueue.push(successor);
-                } else{
+                }
+                else{
                     if (foundInCloseSet){
                         continue;
                     }
@@ -115,7 +115,8 @@ class Astar : public Searcher<Problem, Solution> {
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-
+        cout<<"path:"<<this->totalPathCost<<endl;
+        cout<<"nodes"<<this->evaluatedNodes<<endl;
 
         return finalSolution;
     }
