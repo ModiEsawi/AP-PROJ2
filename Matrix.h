@@ -30,10 +30,11 @@ public:
         for (it = rows.begin(); it != rows.end(); ++it, rowCounter++) {
             string temp, line = *it;
             list<double> values;
-            for (int i = 0; i < line.size(); i++) {
-                if (line[i] != ',' && line[i] != '\n' && line[i] != ' ')
-                    temp += line[i];
-                if (line[i] == ',' || line[i] == '\n' || i == line.size() - 1) {
+            long looper, size = line.size();
+            for (looper = 0; looper < size; looper++) {
+                if (line[looper] != ',' && line[looper] != '\n' && line[looper] != ' ')
+                    temp += line[looper];
+                if (line[looper] == ',' || line[looper] == '\n' || looper == size - 1) {
                     values.push_back(atof(temp.c_str()));
                     temp = "";
                 }
@@ -181,13 +182,21 @@ public:
             T nextIndex = next->getState();
             string value = to_string(curr->getPathCost());
             if (currIndex.getX() < nextIndex.getX()) {
-                status = "Down ";
+                status = "Down (";
+                status.append(value);
+                status.append(")");
             } else if (currIndex.getX() > nextIndex.getX()) {
-                status = "Up ";
+                status = "Up (";
+                status.append(value);
+                status.append(")");
             } else if (currIndex.getY() < nextIndex.getY()) {
-                status = "Right ";
+                status = "Right (";
+                status.append(value);
+                status.append(")");
             } else {
-                status = "Left ";
+                status = "Left (";
+                status.append(value);
+                status.append(")");
             }
             pathString += status;
             pathString += ",";

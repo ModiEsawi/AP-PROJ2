@@ -13,8 +13,8 @@ public:
 
     int getNumberOfNodesEvaluated() const { return this->evaluatedNodes; }
 
-    virtual ~ISearcher() = delete;
 
 };
+
 
 #endif //EX4_ISEARCHER_H

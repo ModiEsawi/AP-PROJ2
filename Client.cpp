@@ -13,7 +13,7 @@ string Client::read(int n) {
         if (errno == EAGAIN || errno == EWOULDBLOCK)	{
             throw TimeOutException("timeout on read");
         }
-        throw std::system_error(std::error_code(errno, std::generic_category()), "error on read");
+        throw system_error(error_code(errno, generic_category()), "error on read");
     }
     std::string output = std::string(buffer);
     delete[] buffer; //free
@@ -27,7 +27,7 @@ void Client::write(string line) {
         if (errno == EWOULDBLOCK || errno == EAGAIN) { // timeout errors
             throw ("timeout on read");
         }
-        throw std::system_error(std::error_code(errno, std::generic_category()), "error on read");
+        throw system_error(error_code(errno, generic_category()), "error on read");
     }
 
 }

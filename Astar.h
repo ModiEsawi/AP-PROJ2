@@ -115,8 +115,6 @@ class Astar : public Searcher<Problem, Solution> {
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-        cout<<"path:"<<this->totalPathCost<<endl;
-        cout<<"nodes"<<this->evaluatedNodes<<endl;
 
         return finalSolution;
     }

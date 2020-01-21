@@ -13,8 +13,8 @@ private:
     double fValue;
     State<T> *whereWeCameFrom;
 public:
-    State(T state) {
-        this->state = state;
+    State(T givenState) {
+        this->state = givenState;
         this->whereWeCameFrom = NULL;
 
     }

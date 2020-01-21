@@ -55,7 +55,6 @@ public:
     }
 
 
-
     State<Problem> *popOpenList() {
         State<Problem> *temp = this->priorityQueue.top();
         this->priorityQueue.pop();
@@ -147,6 +146,9 @@ public:
             this->starPriorityQueue.push(*vectorIterator);
         }
 
+    }
+
+    virtual ~Searcher() {
     }
 };
 

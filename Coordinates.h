@@ -22,15 +22,15 @@ public:
     Coordinates(string givenString) {
         try {
             string temp;
-            int flag = 0;
-            for (int i = 0; i < givenString.size(); i++) { //iterate over each char in the string
+            long flag = 0,size = givenString.size(),i;
+            for (i = 0; i < size; i++) { //iterate over each char in the string
                 if (givenString[i] != ',') //split by ','
                     temp += givenString[i];
                 if (flag == 0 && givenString[i] == ',') { //left
                     flag = 1;
                     this->x = stoi(temp);
                     temp = "";
-                } else if (flag == 1 && i == givenString.size() - 1) { //right
+                } else if (flag == 1 && i == size - 1) { //right
                     this->y = stoi(temp);
                     temp = "";
                     flag = 2;

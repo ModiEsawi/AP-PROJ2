@@ -16,15 +16,13 @@ private:
 
 public:
 
-     explicit Adapter(ISearcher<T,Solution>* is):is(is){}
+     explicit Adapter(ISearcher<T,Solution>* isearcher):is(isearcher){}
 
 
     Solution* solve(Problem* problem) {
         return is->search(problem);
     }
-    ~Adapter(){
-        delete is;
-    }
+
 
     virtual Adapter* getClone(){
         return new Adapter(this->is->getClone());
