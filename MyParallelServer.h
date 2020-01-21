@@ -9,10 +9,9 @@
 #include <netinet/in.h>
 
 /*
- * MyParallelServer class is a server that handle the clients were joined
- * in parallel  and this done by threads .
+ * MyParallelServer class is a server that handles clients in parallel and this done using threads .
  * we wait unlimited time to the first client, and then
- * set timeout to stop if no joined until this time.
+ * set timeout to stop if no one joined until this sett time.
  */
 class MyParallelServer : public GeneralServer {
 private:

@@ -10,11 +10,11 @@
 
 /*
  * FinalClientHandler class.
- * get a problem from the client , (one line) represented as string,and solve it and return the solution as string back
- * to the client. repeat this operation until recive "end" string from the client.
+ * read a problem from the client , (one line) represented as string,and solve it and return the solution as string back
+ * to the client. repeat this operation until "end" is read from the client.
  * note that the Problem and Solution MUST be representable , which mean that have toString() function that return an
  * appropriate string that define the object , in addition it MUST have a constructor that get string which means
- * can build the object from a string . we Solve the problem and save the solution by CacheManger
+ * can build the object from a string . we Solve the problem and save the solution int the  FileCacheManger
  * that we recieved in contructor.
  */
 

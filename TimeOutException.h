@@ -4,8 +4,7 @@
 #include <iostream>
 
 /*
- * Timeout Exception , used to define exceptions while
- *  accept in socket
+ * Timeout Exception , used to define exceptions while waiting for the next client to long
  */
 class TimeOutException : public runtime_error {
 public:

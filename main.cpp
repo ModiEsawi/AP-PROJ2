@@ -7,7 +7,7 @@
 * class(string)
 * class (list<string>)
 *
-* => we handle with the problems as strings(get from the client) and
+*  we handle with the problems as strings(from the client) and
 * send back the solution as string.
 */
 

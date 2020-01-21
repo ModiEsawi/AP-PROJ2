@@ -4,6 +4,11 @@
 #include "Solver.h"
 #include "Client.h"
 
+/*
+ * ClientHandler interface.
+ * define a protocol to deal with clients' requests.
+ */
+
 namespace server_side {
     class ClientHandler {
     public:

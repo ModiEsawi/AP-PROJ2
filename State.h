@@ -5,8 +5,9 @@
 #include <thread_db.h>
 
 /*
- * State class define a state with cost, parent(cameFrom) , path cost , which is
- * the cost of whole ancestors.the State get template class , which is class that define an index .
+ * State class
+ * defines a state with a cost, parent(whereWeCameFrom) , path cost , which is
+ * the cost of whole ancestors.the State get template class , which is a class that defines an index .
  */
 
 template<typename T>

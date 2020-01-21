@@ -6,7 +6,7 @@
 #include "BasicString.h"
 
 /*
- * StringReverser is a solver which get a string and reverse it
+ * StringReverser is a solver which gets a string and reverses it
  */
 
 template<typename Problem, typename Solution>

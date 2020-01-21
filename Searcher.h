@@ -12,7 +12,7 @@ template<typename Problem, typename Solution>
 
 /*
  * Searcher abstract class.
- * define methods that common among all the searchers.
+ * define methods that are common among all the searchers.
  */
 
 class Searcher : public ISearcher<Problem, Solution> {

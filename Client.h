@@ -4,6 +4,10 @@
 #include <string>
 #include "GeneralSocket.h"
 
+/*
+ * Client class
+ * used to communicate with he client .
+ * */
 class Client {
     generalSocket socket;
 public:

@@ -3,6 +3,19 @@
 
 template<typename Problem, typename Solution>
 
+
+/*
+ * CacheManager Interface.
+ * saves the solution of given problem
+ *
+* note that the Problem and Solution MUST be representable ,
+* which mean that have toString() function that return an
+* appropriate string that define the object , in addition
+* it MUST have a constructor that get string (or list of strings) which means
+* can build the object from a string .
+*
+*/
+
 class CacheManager {
 public:
     virtual Solution* getSolution(Problem* problem) = 0;
