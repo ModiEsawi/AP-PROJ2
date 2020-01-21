@@ -6,6 +6,9 @@
 #include "Searcher.h"
 
 template<typename Problem, typename Solution>
+/*
+ * The DFS Algorithm class , which is a kind of a Searcher.
+ */
 class DFS : public Searcher<Problem, Solution> {
 
 public:
@@ -77,7 +80,6 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-        cout << "Ev =" << this->evaluatedNodes << "Cost=" << this->totalPathCost << endl;
 
         return finalSolution;
     }

@@ -10,7 +10,14 @@
 
 using namespace std;
 
-
+/*
+ * FileCacheManager class.
+ * save the problem and it's solution in file
+ *
+ * note that the Problem and Solution MUST be representable , which mean that have toString() function that return an
+ * appropriate string that define the object , in addition it MUST have a constructor that get string (or list of
+ * strings) which means can build the object from a string .
+ */
 template<typename Problem, typename Solution>
 class FileCacheManager : public CacheManager<Problem, Solution> {
 private:
@@ -80,15 +87,22 @@ public:
         }
     }
 
+    // finding out if the matrix was solved before
+
     bool alreadySolved(Problem *problem) {
         return foundInMap(problem) || foundInFiles(problem);
     }
 
+    // if it is in the map..
+
     bool foundInMap(Problem *problem) {
-        if (this->hashCache.find(problem->toString()) == this->hashCache.end())
+        if (this->hashCache.find(problem->toString()) == this->hashCache.end()) {
             return false;
+        }
         return true;
     }
+
+    // if it is in the files..
 
     bool foundInFiles(Problem *problem) {
         hash<std::string> hasher;
@@ -97,6 +111,7 @@ public:
         return (bool) isfile;
     }
 
+    //
     virtual CacheManager<Problem, Solution> *getClone() {
         return new FileCacheManager<Problem, Solution>;
     }
@@ -105,24 +120,4 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-
-//template<typename T>
-//void FileCacheManager<T>::foreach(void (*function)(T &)) {
-//    // given a lambda function..we will iterate over the members and apply the function on each member.
-//    typename list<pair < string, T>>
-//    ::iterator
-//    it;
-//    for (it = cacheList.begin(); it != cacheList.end(); ++it) {
-//        function(it->second);
-//    }
-//}
 

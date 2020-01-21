@@ -5,6 +5,13 @@
 using namespace std;
 
 
+/*
+ * struct defining general socket, with general operations (open and close)
+ * opening is done in the constructor. the socket is not automatically closed in the destructor so that the object
+ * can be passed as a parameter (possibly to another thread)
+ */
+
+
 struct generalSocket{
     int socket_fd;
 

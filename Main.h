@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-
 #include "StringReverser.h"
 #include "FileCacheManager.h"
 #include "CacheManager.h"
@@ -20,6 +19,8 @@
 #include "DFS.h"
 #include "BFS.h"
 #include "MyParallelServer.h"
+
+// the main function that will run the server
 
 namespace server_side {
     namespace boot {

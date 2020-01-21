@@ -5,7 +5,10 @@
 #include "Solver.h"
 #include "ISearcher.h"
 
-
+/*
+ * Adapter is an implementation of Adapter design patterns which links between ISearcher class and Solver Class by
+ * containing a member of ISearcher (given by the Constructor) and call ISearcher->search in the solve function .
+ */
 template<typename Problem, typename T,typename  Solution>
 
 class Adapter : public Solver<Problem,Solution>{

@@ -10,6 +10,13 @@
 
 using namespace std;
 
+/*
+ * MazeDomain class
+ * define a matrix , which for all element ,the cost is it's value. this is representable class , which mean we can
+ * build a an object of this class by given list of strings (get in CTOR) , in addition , has
+ * toString() Method.
+ */
+
 template<typename T>
 class Matrix : public ISearchable<T> {
 private:

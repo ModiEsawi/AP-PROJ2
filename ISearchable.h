@@ -7,7 +7,10 @@
 #include "State.h"
 #include "vector"
 using namespace std;
-
+/*
+ * ISearchable Interface.
+ * define methods of search problems
+ */
 template<typename T>
 class ISearchable {
 public:

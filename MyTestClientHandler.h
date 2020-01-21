@@ -3,6 +3,15 @@
 #define PROJ25_MYTESTCLIENTHANDLER_H
 
 #include "ClientHandler.h"
+/*
+ * MyTestClientHandler class. get a problem from the client , (one line) represenented as string,
+ * and solve it and return the solution as string back to the client. repeat this operation until recive "end" string
+ * from the client. note that the Problem and Solution MUST be representable , which mean that have toString() function
+ * that return an appropriate string that define the object , in addition it MUST have a constructor that get string
+ * which means can build the object from a string .
+ * we Solve the problem and save the solution in the  FIleCacheManger
+ * that we received in the constructor.
+ */
 
 
 template<typename Problem, typename Solution>

@@ -4,6 +4,9 @@
 
 #include "Searcher.h"
 #include "queue"
+/*
+ * The BFS Algorithm class , which is a kind of a Searcher.
+ */
 
 template<typename Problem, typename Solution>
 class BFS : public Searcher<Problem, Solution> {

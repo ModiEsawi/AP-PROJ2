@@ -4,6 +4,13 @@
 using namespace std;
 template <typename Problem, typename Solution>
 
+/*
+ * Solver Class .
+ * get to classes (replaced with templates) this function must be representable which mean must implement toString
+ * function and must have constructor thar get string
+ */
+
+
 class Solver{
 
 public:

@@ -3,7 +3,11 @@
 #include <string>
 #include "vector"
 using namespace std;
-
+/*
+ * BasicString class is a class which contain a string ,StringCass is representable which means that
+ * we can represent it(toString) and build it from
+ * string (constructor)
+ */
 
 
 class BasicString {

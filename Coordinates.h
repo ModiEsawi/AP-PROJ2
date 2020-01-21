@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// X and Y coordinates of the matrix
+
 class Coordinates {
 private:
 
@@ -55,6 +57,7 @@ public:
 
     string toString() const { return to_string(x) + "," + to_string(y); }
 
+    // operator overloading
 
     bool operator==(const Coordinates &i) const {
         return this->x == i.getX() && this->y == i.getY();

@@ -6,6 +6,9 @@
 #include "Searcher.h"
 #include <unordered_set>
 
+/*
+ * The A* Algorithm class , which is a kind of a Searcher.
+ */
 template<typename Problem, typename Solution>
 class Astar : public Searcher<Problem, Solution> {
     Solution *search(ISearchable<Problem> *searchable) {
@@ -21,7 +24,7 @@ class Astar : public Searcher<Problem, Solution> {
         State<Problem> *finalGoal = searchable->getGoalState();
         int goalX = finalGoal->getState().getX();
         int goalY = finalGoal->getState().getY();
-
+        // initial F function
         int initialX = initialState->getState().getX();
         int initialY = initialState->getState().getY();
 
@@ -31,7 +34,7 @@ class Astar : public Searcher<Problem, Solution> {
 
         initialState->setThePathCost(initialState->getCost());
         initialState->setTheFcost(initialFfunction);
-
+        // a queue which is sorted by the F value
         this->starPriorityQueue.push(initialState);
 
         while (!this->starPriorityQueue.empty()) {
@@ -43,7 +46,7 @@ class Astar : public Searcher<Problem, Solution> {
                 goalIsFound = currentState;
                 break;
             }
-
+            // all the successors of the current state
             vector<State<Problem> *> successors = searchable->getAllPossibleStates(currentState);
             typename vector<State<Problem> *>::iterator it;
             for (it = successors.begin(); it != successors.end(); ++it) {
@@ -58,37 +61,36 @@ class Astar : public Searcher<Problem, Solution> {
                     if (*successor == *(*closedSetIterator))
                         foundInCloseSet = true;
                 }
-                double gFunction = currentState->getPathCost() + successor->getCost();
 
-                int successorsX = successor->getState().getX();
-                int successorsY = successor->getState().getY();
+                // calculating each successor F function
+                double gFunction = currentState->getPathCost() + successor->getCost();
+                int successorsX = successor->getState().getX(), successorsY = successor->getState().getY();
 
                 double hFunction = abs(successorsX - goalX) + abs(successorsY - goalY);
 
                 double fFunction = gFunction + hFunction;
 
-                if(!foundInCloseSet && !this->starCheckExistence(successor)){
+                if (!foundInCloseSet && !this->starCheckExistence(successor)) {
                     successor->setWhereWeCameFrom(currentState);
                     successor->setThePathCost(gFunction);
                     successor->setTheFcost(fFunction);
                     this->starPriorityQueue.push(successor);
-                }
-                else{
-                    if (foundInCloseSet){
+                } else {
+                    if (foundInCloseSet) {
                         continue;
-                    }
-                    else if (gFunction < successor->getPathCost()){
+                    } else if (gFunction < successor->getPathCost()) {
                         successor->setWhereWeCameFrom(currentState);
                         successor->setThePathCost(gFunction);
                         successor->setTheFcost(fFunction);
                         this->starPriorityQueue.push(successor);
-                        this->starAdjustSmallerPath(successor,currentState);
+                        this->starAdjustSmallerPath(successor, currentState);
                     }
                 }
             }
         }
 
         if (goalIsFound != NULL) {
+            //backtrace path to root (through recorded parents) and return path.
             vector<State<Problem> *> fathers = this->traceBack(goalIsFound);
             if (fathers.size() == 1) {
                 stringSolution = "Not Found";
@@ -119,7 +121,7 @@ class Astar : public Searcher<Problem, Solution> {
         return finalSolution;
     }
 
-    ISearcher<Problem,Solution>* getClone(){
+    ISearcher<Problem, Solution> *getClone() {
         return new Astar();
     }
 };

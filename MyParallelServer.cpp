@@ -25,11 +25,11 @@ void MyParallelServer::open(int port, server_side::ClientHandler *c) {
         exit(0);
     }
     //making socket listen to the port
-    if (::listen(socketfd, 5) == -1) { //can also set to SOMAXCON (max connections)
+    if (::listen(socketfd, 10) == -1) { //can also set to SOMAXCON (max connections)
         std::cerr << "Error during listening command" << std::endl;
         exit(0);
     }
-    cout << "Server is now listening ..." << std::endl;
+    cout << "Server is now listening ..." << endl;
 
     int addrLenn = sizeof(address);
 

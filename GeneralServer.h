@@ -8,6 +8,11 @@
 
 #define TIMEOUT 2
 
+/*
+ * GeneralServer is an abstract class
+ * which defines the general methods of  TCP servers
+ */
+
 class GeneralServer : public server_side::Server {
     generalSocket socket;
     bool shouldStop = false;

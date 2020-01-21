@@ -2,7 +2,6 @@
 #include "GeneralServer.h"
 
 bool joined = false;
-
 void MySerialServer::open(int givenPort, server_side::ClientHandler *givenClientHandler) {
 
     bindToPort(givenPort);

@@ -4,6 +4,10 @@
 #include <unordered_set>
 #include "Searcher.h"
 
+/*
+ * The BestFirstSearch Algorithm class , which is a kind of a Searcher.
+ */
+
 template<typename Problem, typename Solution>
 class BestFirstSearch : public Searcher<Problem, Solution> {
 public:

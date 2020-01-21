@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "TimeOutException.h"
 
+// reading from the client
 string Client::read(int n) {
     char* buffer = new char[n + 1]; //max size is n;
     bzero(buffer,n);
@@ -19,7 +20,7 @@ string Client::read(int n) {
     delete[] buffer; //free
     return output;
 }
-
+// writing to the client
 void Client::write(string line) {
 
     int is_sent = send(this->socket.socket_fd, line.c_str(), (line).size(), 0);

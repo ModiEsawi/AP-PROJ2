@@ -4,6 +4,11 @@
 
 #include "ISearchable.h"
 
+/*
+ * ISearcher interface.
+ * define methods of the searcher class that solve serchable problems.
+ */
+
 template<typename Problem, typename Solution>
 class ISearcher {
 public:

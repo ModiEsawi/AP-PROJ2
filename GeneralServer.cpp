@@ -4,6 +4,7 @@
 #include <iostream>
 #include "GeneralServer.h"
 
+
 void GeneralServer::bindToPort(int port) {
     sockaddr_in addr_in;
     addr_in.sin_family = AF_INET;
