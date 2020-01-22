@@ -24,7 +24,9 @@ class Astar : public Searcher<Problem, Solution> {
         State<Problem> *finalGoal = searchable->getGoalState();
         int goalX = finalGoal->getState().getX();
         int goalY = finalGoal->getState().getY();
+
         // initial F function
+
         int initialX = initialState->getState().getX();
         int initialY = initialState->getState().getY();
 
@@ -117,7 +119,6 @@ class Astar : public Searcher<Problem, Solution> {
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-
         return finalSolution;
     }
 

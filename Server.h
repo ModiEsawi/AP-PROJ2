@@ -4,7 +4,7 @@
 #include "ClientHandler.h"
 #include "TimeOutException.h"
 
-#define MAX_ALLOWED_LISTENERS 5
+#define MAX_ALLOWED_LISTENERS 10
 
 
 /*

@@ -21,6 +21,7 @@ public:
         vector<State<Problem> *> visited;
 
         State<Problem> *initial = searchable->getInitialState();
+        initial->setThePathCost(initial->getCost()); // this line is added so we can get the cost at each path
         statesStack.push(initial);
         visited.push_back(initial); // mark as visited
 
@@ -49,6 +50,8 @@ public:
                 }
                 if (!alreadyVisited) {
                     currentState->setWhereWeCameFrom(atTheTop);
+//                     this line is added so we can get the cost at each path
+                    currentState->setThePathCost(atTheTop->getPathCost() + currentState->getCost());
                     statesStack.push(currentState);
                     visited.push_back(currentState);
                 }
@@ -80,7 +83,6 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-
         return finalSolution;
     }
 

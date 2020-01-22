@@ -4,6 +4,7 @@
 
 #include "Searcher.h"
 #include "queue"
+
 /*
  * The BFS Algorithm class , which is a kind of a Searcher.
  */
@@ -12,13 +13,14 @@ template<typename Problem, typename Solution>
 class BFS : public Searcher<Problem, Solution> {
 public:
     Solution *search(ISearchable<Problem> *searchable) {
-        State<Problem>* goalIsFound = NULL;
+        State<Problem> *goalIsFound = NULL;
         string stringSolution;
         State<Problem> *initialState = searchable->getInitialState();
-        queue<State<Problem>*> statesQueue;
+        queue<State<Problem> *> statesQueue;
         vector<State<Problem> *> visited;
 
-        State<Problem>* initial = searchable->getInitialState();
+        State<Problem> *initial = searchable->getInitialState();
+        initial->setThePathCost(initial->getCost()); // this line is added so we can get the cost at each path
         statesQueue.push(initial);
         visited.push_back(initial); // mark as visited
 
@@ -36,17 +38,20 @@ public:
             this->evaluatedNodes++;
 
             typename vector<State<Problem> *>::iterator successorsIterator;
-            for (successorsIterator = successors.begin(); successorsIterator != successors.end(); ++successorsIterator){
+            for (successorsIterator = successors.begin();
+                 successorsIterator != successors.end(); ++successorsIterator) {
 
                 State<Problem> *currentState = *successorsIterator;
                 bool alreadyVisited = false;
                 for (auto visitedIterator : visited) {
-                    if (*currentState == *visitedIterator) { // check later to see if u can add "break" here
+                    if (*currentState == *visitedIterator) {
                         alreadyVisited = true;
                     }
                 }
                 if (!alreadyVisited) {
                     currentState->setWhereWeCameFrom(atTheTop);
+                    // this line is added so we can get the cost at each path
+                    currentState->setThePathCost(atTheTop->getPathCost() + currentState->getCost());
                     statesQueue.push(currentState);
                     visited.push_back(currentState);
                 }
@@ -80,10 +85,10 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-        cout<<"Ev ="<<this->evaluatedNodes<<"Cost="<<this->totalPathCost<<endl;
         return finalSolution;
     }
-    ISearcher<Problem,Solution>* getClone(){
+
+    ISearcher<Problem, Solution> *getClone() {
         return new BFS();
     }
 

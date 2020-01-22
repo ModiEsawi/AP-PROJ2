@@ -12,13 +12,13 @@ template<typename Problem, typename Solution>
 class BestFirstSearch : public Searcher<Problem, Solution> {
 public:
     Solution *search(ISearchable<Problem> *searchable) {
-        State<Problem>* goalIsFound = NULL;
+        State<Problem> *goalIsFound = NULL;
         string stringSolution;
         State<Problem> *initialState = searchable->getInitialState();
 
         this->priorityQueue.push(initialState);
         initialState->setThePathCost(initialState->getCost());
-        unordered_set<State<Problem>*> closedHashSet;
+        unordered_set<State<Problem> *> closedHashSet;
 
         while (!this->priorityQueue.empty()) {
 
@@ -35,17 +35,19 @@ public:
             // create a solution from the fathers
             vector<State<Problem> *> successors = searchable->getAllPossibleStates(n);
             typename vector<State<Problem> *>::iterator successorsIterator;
-            for (successorsIterator = successors.begin(); successorsIterator != successors.end(); ++successorsIterator){
+            for (successorsIterator = successors.begin();
+                 successorsIterator != successors.end(); ++successorsIterator) {
 
                 State<Problem> *currentState = *successorsIterator;
                 double pathCostIncludingSuccessor = n->getPathCost() + currentState->getCost();
-                typename unordered_set<State<Problem>*>::iterator closedSetIterator;
+                typename unordered_set<State<Problem> *>::iterator closedSetIterator;
 
                 bool foundInCloseSet = false;
 
-                for(closedSetIterator=closedHashSet.begin();closedSetIterator!=closedHashSet.end();++closedSetIterator){
-                    if(*currentState == *(*closedSetIterator))
-                        foundInCloseSet=true;
+                for (closedSetIterator = closedHashSet.begin();
+                     closedSetIterator != closedHashSet.end(); ++closedSetIterator) {
+                    if (*currentState == *(*closedSetIterator))
+                        foundInCloseSet = true;
                 }
 
                 if (!this->checkExistence(currentState) && !foundInCloseSet) {
@@ -76,7 +78,7 @@ public:
 
             } else {
                 typename vector<State<Problem> *>::iterator it = fathers.begin();
-                fathers.insert(it,goalIsFound);
+                fathers.insert(it, goalIsFound);
                 stringSolution = searchable->getFullPathAsString(fathers);
                 this->totalPathCost = goalIsFound->getPathCost();
 
@@ -90,12 +92,11 @@ public:
         // now we will build a solution from what we get as a final goal state.
 
         auto finalSolution = new Solution(stringSolution);
-        cout<<"Ev ="<<this->evaluatedNodes<<"Cost="<<this->totalPathCost<<endl;
-
         return finalSolution;
 
     }
-    ISearcher<Problem,Solution>* getClone(){
+
+    ISearcher<Problem, Solution> *getClone() {
         return new BestFirstSearch();
     }
 };

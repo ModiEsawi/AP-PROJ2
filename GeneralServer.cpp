@@ -21,7 +21,6 @@ void GeneralServer::listen(int maximumAllowedListeners) {
         throw std::system_error(std::error_code(errno, std::generic_category()), "Failed To listen");
     }
     cout << "Server is now listening ..." << std::endl;
-
 }
 
 void GeneralServer::setTimeout(int sec, int uSec) {
